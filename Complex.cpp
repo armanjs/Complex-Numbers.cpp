@@ -106,19 +106,12 @@ void importComplexFile(string fileName) {
         stringstream(oneLine) >> imaginary;
         stringstream(oneLine) >> iChar;
 
-        // if there's a minus behind the imaginary number
-        /*if (plusOrMinus == '-'){
-            imaginary = -imaginary;
-        } */
-        //inFile >> real >> plusOrMinus >> imaginary;
-        // create an object and store numbers
         Complex complexNumber(real, imaginary);
         Complex complexArray[10];
         for (int i = 0; i < 10; ++i) {
             complexArray[i] = complexNumber;
         }
         cout << complexArray[2];
-        //cout << complexNumber;
         outFile << complexNumber;
         realSum = realSum + real; // add up all the real numbers
         imaginarySum = imaginarySum + imaginary; // add up all the imaginary numbers
