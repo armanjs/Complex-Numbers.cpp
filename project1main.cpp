@@ -16,12 +16,13 @@ int main() {
 
     importComplexFile("../complex.txt");
 
-    /*for debugging only
+    //for debugging only
     Complex c1(3, 6);
     Complex c2(4, 6);
 
-    cout << c1 + c2 << endl;
-    cout << c1 << endl; */
+    cout << endl << c1 + c2;
+    cout << c1;
+    cout << (c1 < c2);
 
 
     return 1;

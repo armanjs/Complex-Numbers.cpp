@@ -30,18 +30,6 @@ istream &operator>>(istream &input, Complex &comp) {
     return input;
 }
 
-/*
-istream& operator>> (istream& is, Complex& complex)
-{
-    char ch;
-    is >> ch;                     //read and discard (
-    is >> complex.real;       //get the real part
-    is >> ch;                     //read and discard,
-    is >> complex.imaginary;  //get the imaginary part
-    is >> ch;                     //read and discard)
-    return is;
-} */
-
 Complex operator+(const Complex &firstNumber, const Complex &secondNumber) {
     return Complex(firstNumber.real + secondNumber.real, firstNumber.imaginary + secondNumber.imaginary);
 }
@@ -117,39 +105,6 @@ void importComplexFile(string fileName) {
 
     inFile.close();
     cout << realSum << " " << imaginarySum << endl;
-}
-
-void importComplexFile2(string fname) {
-    ifstream fin;
-    fin.open(fname.c_str());
-
-    double real, im;
-    char plusorminus, ichar;
-    Complex c;
-    string oneline;
-    while (!fin.eof()) {
-        getline(fin, oneline);
-        real = 0;
-        im = 0;
-        plusorminus = '\0';
-        ichar = '\0';
-        stringstream(oneline) >> real >> plusorminus >> im >> ichar;
-        switch (plusorminus) {
-            case '-':
-                im = -im;
-                break;
-            case 'i':
-                im = real;
-                real = 0;
-                break;
-            case '\0':
-                im = 0;
-                break;
-        }
-        c.setComplex(real, im);
-        cout << c << endl;
-    }
-    fin.close();
 }
 
 
