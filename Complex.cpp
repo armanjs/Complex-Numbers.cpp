@@ -96,16 +96,11 @@ void importComplexFile(string fileName) {
 
     while (getline(inFile, oneLine)) { // as long as it hasn't reached end of file
         // read into "oneLine"
-        /* read in from "oneLine" and see if it's a number
-        if (!(stringstream(oneLine) >> real >> plusOrMinus >> imaginary)){
-            // if not a number set all to 0
-            real = 0;
-            imaginary = 0;
-        } */
-        stringstream(oneLine) >> real;
-        stringstream(oneLine) >> imaginary;
-        stringstream(oneLine) >> iChar;
-
+        // read in from "oneLine" and see if it's a number
+        if (oneLine.back() == 'i'){ // find the 'i'
+            oneLine.erase(prev(oneLine.end()));
+        }
+        stringstream(oneLine) >> real >> imaginary;
         Complex complexNumber(real, imaginary);
         Complex complexArray[10];
         for (int i = 0; i < 10; ++i) {
