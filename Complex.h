@@ -19,8 +19,9 @@ public:
     // define the constructors
     Complex();
     Complex(double r, double i);
-    // define the setters
+    // define the setters and getters
     void setComplex(const double& real, const double& imag);
+    Complex getComplex(const double& real, const double& imag);
 
 private:
     double real;

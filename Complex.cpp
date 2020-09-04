@@ -64,6 +64,10 @@ void Complex::setComplex(const double &r, const double &i) {
     imaginary = i;
 }
 
+Complex Complex:: getComplex(const double &real, const double &imag) {
+    return Complex(real, imag);
+}
+
 void importComplexFile(string fileName) {
     ifstream inFile; // create an in file object
     ofstream outFile; // create an output stream object
