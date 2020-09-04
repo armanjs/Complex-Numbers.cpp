@@ -6,24 +6,24 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+
 using namespace std;
 
 // overload the << operator
-ostream& operator << (ostream& output, const Complex&comp){
+ostream &operator<<(ostream &output, const Complex &comp) {
     output << "(" << comp.real << ", " << comp.imaginary << ")" << endl;
     return output;
 }
 
 //overload the >> operator
-istream& operator >> (istream& input, Complex&comp){
+istream &operator>>(istream &input, Complex &comp) {
     char nan; // not a number (anything but a number)
     double realPart;
     double imaginaryPart;
-    if (input >> realPart >> imaginaryPart >> nan){
+    if (input >> realPart >> imaginaryPart >> nan) {
         comp.real = realPart;
         comp.imaginary = imaginaryPart;
-    }
-    else {
+    } else {
         input.clear();
         input.ignore(numeric_limits<streamsize>::max(), '\n');
     }
@@ -42,21 +42,20 @@ istream& operator>> (istream& is, Complex& complex)
     return is;
 } */
 
-Complex operator + (const Complex& firstNumber, const Complex& secondNumber){
+Complex operator+(const Complex &firstNumber, const Complex &secondNumber) {
     return Complex(firstNumber.real + secondNumber.real, firstNumber.imaginary + secondNumber.imaginary);
 }
 
-Complex operator - (const Complex& firstNumber, const Complex& secondNumber){
+Complex operator-(const Complex &firstNumber, const Complex &secondNumber) {
     return Complex(firstNumber.real - secondNumber.real, firstNumber.imaginary - secondNumber.imaginary);
 }
 
-Complex operator < (const Complex& firstNumber, const Complex& secondNumber){
+Complex operator<(const Complex &firstNumber, const Complex &secondNumber) {
     double value1 = sqrt(firstNumber.real * firstNumber.real + firstNumber.imaginary * firstNumber.imaginary);
     double value2 = sqrt(secondNumber.real * secondNumber.real + secondNumber.imaginary * secondNumber.imaginary);
-    if (value2 < value1){
+    if (value2 < value1) {
         return Complex(firstNumber.real, firstNumber.imaginary);
-    }
-    else {
+    } else {
         return Complex(secondNumber.real, secondNumber.imaginary);
     }
 }
@@ -72,7 +71,7 @@ Complex::Complex(double r, double i) {
 }
 
 // define the setter
-void Complex::setComplex(const double& r, const double& i) {
+void Complex::setComplex(const double &r, const double &i) {
     real = r;
     imaginary = i;
 }
@@ -96,14 +95,17 @@ void importComplexFile(string fileName) {
     outFile.open("complexObj.txt");
 
     while (getline(inFile, oneLine)) { // as long as it hasn't reached end of file
-         // read into "oneLine"
+        // read into "oneLine"
         /* read in from "oneLine" and see if it's a number
         if (!(stringstream(oneLine) >> real >> plusOrMinus >> imaginary)){
             // if not a number set all to 0
             real = 0;
             imaginary = 0;
         } */
-        stringstream(oneLine) >> real >> imaginary >> iChar;
+        stringstream(oneLine) >> real;
+        stringstream(oneLine) >> imaginary;
+        stringstream(oneLine) >> iChar;
+
         // if there's a minus behind the imaginary number
         /*if (plusOrMinus == '-'){
             imaginary = -imaginary;
@@ -122,30 +124,39 @@ void importComplexFile(string fileName) {
         imaginarySum = imaginarySum + imaginary; // add up all the imaginary numbers
     }
 
-    Complex sumComplex(realSum,imaginarySum);
+    Complex sumComplex(realSum, imaginarySum);
     outFile << "Sum: " << sumComplex << endl;
 
     inFile.close();
     cout << realSum << " " << imaginarySum << endl;
 }
 
-void importComplexFile2(string fname)
-{
-    ifstream	fin;
+void importComplexFile2(string fname) {
+    ifstream fin;
     fin.open(fname.c_str());
 
-    double real,im;
-    char plusorminus,ichar;
+    double real, im;
+    char plusorminus, ichar;
     Complex c;
     string oneline;
-    while (!fin.eof()){
+    while (!fin.eof()) {
         getline(fin, oneline);
-        real=0; im=0; plusorminus='\0'; ichar='\0';
-        stringstream(oneline)>>real>>plusorminus>>im>>ichar;
-        switch (plusorminus){
-            case	'-': im=-im; break;
-            case	'i': im=real; real=0; break;
-            case	'\0': im=0; break;
+        real = 0;
+        im = 0;
+        plusorminus = '\0';
+        ichar = '\0';
+        stringstream(oneline) >> real >> plusorminus >> im >> ichar;
+        switch (plusorminus) {
+            case '-':
+                im = -im;
+                break;
+            case 'i':
+                im = real;
+                real = 0;
+                break;
+            case '\0':
+                im = 0;
+                break;
         }
         c.setComplex(real, im);
         cout << c << endl;
