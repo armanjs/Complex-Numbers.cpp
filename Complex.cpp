@@ -64,8 +64,8 @@ void Complex::setComplex(const double &r, const double &i) {
     imaginary = i;
 }
 
-Complex Complex:: getComplex(const double &real, const double &imag) {
-    return Complex(real, imag);
+Complex Complex::getComplex() const {
+    return {this->real, this->imaginary};
 }
 
 void importComplexFile(string fileName) {
