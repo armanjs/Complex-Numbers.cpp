@@ -21,7 +21,8 @@ public:
     Complex(double r, double i);
     // define the setters and getters
     void setComplex(const double& real, const double& imag);
-    Complex getComplex() const;
+    double getReal() const;
+    double getImaginary() const;
 
 private:
     double real;

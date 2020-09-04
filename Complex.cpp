@@ -64,8 +64,12 @@ void Complex::setComplex(const double &r, const double &i) {
     imaginary = i;
 }
 
-Complex Complex::getComplex() const {
-    return {this->real, this->imaginary};
+double Complex::getReal() const {
+    return real;
+}
+
+double Complex::getImaginary() const {
+    return imaginary;
 }
 
 void importComplexFile(string fileName) {
@@ -98,7 +102,7 @@ void importComplexFile(string fileName) {
         for (int i = 0; i < 10; ++i) {
             complexArray[i] = complexNumber;
         }
-        cout << complexArray[2];
+        cout << complexArray[2].getReal() << endl;
         outFile << complexNumber;
         realSum = realSum + real; // add up all the real numbers
         imaginarySum = imaginarySum + imaginary; // add up all the imaginary numbers
