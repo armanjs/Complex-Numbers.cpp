@@ -14,7 +14,7 @@ void importComplexFile(string fileName);
 
 int main() {
 
-    importComplexFile("/Users/Arman/Desktop/CMPE126/Complex/complex.txt");
+    importComplexFile("../complex.txt");
 
     /*for debugging only
     Complex c1(3, 6);
