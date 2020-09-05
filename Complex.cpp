@@ -75,11 +75,13 @@ double Complex::getImaginary() const {
 void importComplexFile(string fileName) {
     ifstream inFile; // create an in file object
     ofstream outFile; // create an output stream object
-    double real, imaginary; // a, bi
+    double real = 0, imaginary = 0; // a, bi
     char plusOrMinus, iChar; // character for (+) (-) and (i)
     string oneLine; // read one line into the variable
     double realSum = 0; // sum of all the real numbers
     double imaginarySum = 0; // sum of all the imaginary numbers
+    const int CAPACITY = 10; // capacity for the array
+    int index = 0; // index for the array
 
     // open the file
     inFile.open(fileName.c_str()); // convert from string to number
@@ -89,30 +91,37 @@ void importComplexFile(string fileName) {
     }
     // open the file, if not found create one
     outFile.open("complexObj.txt");
+    // create a complex object
+    Complex complexNumber(real, imaginary);
+    // create a dynamic array
+    Complex *complexArray;
+    complexArray = new Complex[CAPACITY];
 
     while (getline(inFile, oneLine)) { // as long as it hasn't reached end of file
-        // read into "oneLine"
-        // read in from "oneLine" and see if it's a number
+        // read from the inFile into the "oneLine" string
         if (oneLine.back() == 'i'){ // find the 'i'
             oneLine.erase(prev(oneLine.end()));
         }
+        // convert from string into double
         stringstream(oneLine) >> real >> imaginary;
-        Complex complexNumber(real, imaginary);
-        Complex complexArray[10];
-        for (int i = 0; i < 10; ++i) {
-            complexArray[i] = complexNumber;
-        }
-        cout << complexArray[2].getReal() << endl;
+        // set the numbers accordingly into the object
+        complexNumber.setComplex(real,imaginary);
+        // read into the array
+        complexArray [index] = complexNumber;
+        // go to the next index
+        index ++;
+        // write to the file
         outFile << complexNumber;
         realSum = realSum + real; // add up all the real numbers
         imaginarySum = imaginarySum + imaginary; // add up all the imaginary numbers
     }
+    cout << complexArray[1];
 
     Complex sumComplex(realSum, imaginarySum);
     outFile << "Sum: " << sumComplex << endl;
 
     inFile.close();
-    cout << realSum << " " << imaginarySum << endl;
+    cout << "real sum: " << realSum << " Imaginary sum: " << imaginarySum << endl;
 }
 
 

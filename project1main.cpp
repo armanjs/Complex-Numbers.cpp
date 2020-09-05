@@ -11,10 +11,12 @@
 
 using namespace std;
 void importComplexFile(string fileName);
+void add();
 
 int main() {
 
     importComplexFile("../complex.txt");
+    add();
 
     //for debugging only
     Complex c1(3, 6);
