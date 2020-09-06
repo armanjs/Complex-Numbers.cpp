@@ -11,21 +11,18 @@
 
 using namespace std;
 void importComplexFile(string fileName);
-void add();
 
 int main() {
 
     importComplexFile("../complex.txt");
-    add();
 
-    //for debugging only
+    /*for debugging only
     Complex c1(3, 6);
     Complex c2(4, 6);
 
     cout << endl << c1 + c2;
-    cout << c1;
-    cout << (c1 < c2);
+    cout << c1; */
 
 
-    return 1;
+    return 0;
 }

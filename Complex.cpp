@@ -38,14 +38,16 @@ Complex operator-(const Complex &firstNumber, const Complex &secondNumber) {
     return Complex(firstNumber.real - secondNumber.real, firstNumber.imaginary - secondNumber.imaginary);
 }
 
-Complex operator<(const Complex &firstNumber, const Complex &secondNumber) {
+bool operator<(const Complex &firstNumber, const Complex &secondNumber) {
     double value1 = sqrt(firstNumber.real * firstNumber.real + firstNumber.imaginary * firstNumber.imaginary);
     double value2 = sqrt(secondNumber.real * secondNumber.real + secondNumber.imaginary * secondNumber.imaginary);
-    if (value2 < value1) {
-        return Complex(firstNumber.real, firstNumber.imaginary);
+    return value2 < value1;
+
+    /*if (value2 < value1) {
+        return true; Complex(firstNumber.real, firstNumber.imaginary);
     } else {
-        return Complex(secondNumber.real, secondNumber.imaginary);
-    }
+        return false; Complex(secondNumber.real, secondNumber.imaginary);
+    } */
 }
 
 // define the constructors
@@ -115,7 +117,27 @@ void importComplexFile(string fileName) {
         realSum = realSum + real; // add up all the real numbers
         imaginarySum = imaginarySum + imaginary; // add up all the imaginary numbers
     }
-    cout << complexArray[1];
+    double sumImg = 0;
+    double sumReal = 0;
+    // this loop calculates the sum
+    for (int i = 0; i < CAPACITY - 1; ++i) {
+        sumImg += complexArray[i].getImaginary();
+        sumReal += complexArray[i].getReal();
+        /* doesnt work for the last array smh
+        if (complexArray[i] < complexArray[i + 1]){
+            swap(complexArray[i], complexArray[i + 1]);
+        }
+        cout << complexArray[i]; */
+    }
+    // this loop does the sorting
+    for (int target = 0; target < CAPACITY; target++){
+        for (int i = CAPACITY - 1; target > i ; i--) {
+            if (complexArray[i] < complexArray[i-1]){
+                swap(complexArray[i], complexArray[i-1]);
+            }
+        }
+        cout << complexArray[target];
+    }
 
     Complex sumComplex(realSum, imaginarySum);
     outFile << "Sum: " << sumComplex << endl;
@@ -123,5 +145,6 @@ void importComplexFile(string fileName) {
     inFile.close();
     cout << "real sum: " << realSum << " Imaginary sum: " << imaginarySum << endl;
 }
+
 
 

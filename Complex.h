@@ -11,7 +11,7 @@ using namespace std;
 class Complex{
     friend ostream& operator << (ostream& output, const Complex& comp);
     friend istream& operator >> (istream& input, Complex& comp);
-    friend Complex operator < (const Complex& firstNumber, const Complex& secondNumber);
+    friend bool operator < (const Complex& firstNumber, const Complex& secondNumber);
     friend Complex operator + (const Complex& firstNumber, const Complex& secondNumber);
     friend Complex operator - (const Complex& firstNumber, const Complex& secondNumber);
 
