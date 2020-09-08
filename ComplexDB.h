@@ -13,15 +13,15 @@ class ComplexDB{
 public:
     ComplexDB();
     void add(ComplexDB c[], int index);
-    void set_max_size(int n);
-    void setComplex(const double& real, const double& imag);
-    int size;
-    int max_size;
-    ComplexDB *list;
+    void del(ComplexDB c[], int index);
+    void setMaxSize(int n);
+    ComplexDB getComplexDB();
 
 private:
-    double real;
-    double imaginary;
+    int currentSize; // number of elements in array
+    int maxSize; // maximum size
+    ComplexDB *list;
+
 };
 
 #endif //COMPLEX_COMPLEXDB_H

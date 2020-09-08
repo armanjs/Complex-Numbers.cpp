@@ -6,29 +6,24 @@
 #include "Complex.h"
 
 using namespace std;
-
+/*
 ostream &operator << (ostream &output, const ComplexDB comp[]){
     int size = sizeof(comp)/sizeof(comp[0]); // find the size of the array
     for (int i = 0; i < size; i++){
         output << "(" << comp[i].real << ", " << comp[i].imaginary << ")" << endl;
     }
     return output;
-}
+} */
 
-void ComplexDB::set_max_size(int n) {
-    max_size = n;
+void ComplexDB::setMaxSize(int n) {
+
 }
 
 ComplexDB::ComplexDB() {
-    real = 0;
-    imaginary = 0;
-    size = 0;
+    currentSize = 0;
+    maxSize = 0;
 }
 
-void ComplexDB::setComplex(const double& r, const double& i){
-    real = r;
-    imaginary = i;
-}
 
 void menuSelect(){
     int selection;
@@ -36,7 +31,7 @@ void menuSelect(){
     cin >> selection;
 }
 
-void add(ComplexDB c[], int index){
+void add(Complex c[], int index){
     double real;
     double imaginary;
     cout << "Enter the real and imaginary part of the number separated by spaces: ";
