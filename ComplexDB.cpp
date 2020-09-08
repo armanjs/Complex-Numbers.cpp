@@ -1,9 +1,14 @@
 //
 // Created by Arman Sadeghi on 9/3/20.
 //
+#include <math.h>
+#include <fstream>
+#include <sstream>
 #include <iostream>
 #include "ComplexDB.h"
 #include "Complex.h"
+
+void list(const int CAPACITY, Complex *complexArray);
 
 using namespace std;
 /*
@@ -39,15 +44,26 @@ void add(Complex c[], int index){
     c[index].setComplex(real, imaginary);
 }
 
-void list(Complex complexArray[]){
-    int CAPACITY = sizeof(complexArray) / sizeof(complexArray[0]);
-    for (int target = 0; target < CAPACITY; target++){
-        for (int i = CAPACITY - 1; i > target ; i--) {
-            if (complexArray[i] < complexArray[i-1]){
-                swap(complexArray[i], complexArray[i-1]);
+//void list1(Complex complexArray[]){
+//    int CAPACITY = sizeof(complexArray) / sizeof(complexArray[0]);
+//    for (int target = 0; target < CAPACITY; target++){
+//        for (int i = CAPACITY - 1; i > target ; i--) {
+//            if (complexArray[i] < complexArray[i-1]){
+//                swap(complexArray[i], complexArray[i-1]);
+//            }
+//        }
+//        cout << complexArray[target];
+//    }
+//}
+
+
+void ComplexDB::list(const int CAPACITY, Complex *complexArray) {
+    for (int target = 0; target < CAPACITY; target++) {
+        for (int i = CAPACITY - 1; i > target; i--) {
+            if (complexArray[i] < complexArray[i - 1]) {
+                swap(complexArray[i], complexArray[i - 1]);
             }
         }
         cout << complexArray[target];
     }
 }
-

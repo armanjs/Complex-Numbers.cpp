@@ -76,6 +76,17 @@ double Complex::getImaginary() const {
     return imaginary;
 }
 
+void listDA(const int CAPACITY, Complex *complexArray) {
+    for (int target = 0; target < CAPACITY; target++) {
+        for (int i = CAPACITY - 1; i > target; i--) {
+            if (complexArray[i] < complexArray[i - 1]) {
+                swap(complexArray[i], complexArray[i - 1]);
+            }
+        }
+        cout << complexArray[target];
+    }
+}
+
 void importComplexFile(string fileName) {
     ifstream inFile; // create an in file object
     ofstream outFile; // create an output stream object
@@ -103,23 +114,23 @@ void importComplexFile(string fileName) {
 
     while (getline(inFile, oneLine)) { // as long as it hasn't reached end of file
         // read from the inFile into the "oneLine" string
-        if (oneLine.back() == 'i'){ // find the 'i'
+        if (oneLine.back() == 'i') { // find the 'i'
             oneLine.erase(prev(oneLine.end()));
         }
         // convert from string into double
         stringstream(oneLine) >> real >> imaginary;
         // set the numbers accordingly into the object
-        complexNumber.setComplex(real,imaginary);
+        complexNumber.setComplex(real, imaginary);
         // read into the array
-        complexArray [index] = complexNumber;
+        complexArray[index] = complexNumber;
         // go to the next index
-        index ++;
+        index++;
         // write to the file
         outFile << complexNumber;
     }
     cout << "enter a number in complex form: ";
     cin >> real >> imaginary;
-    complexArray[index].setComplex(real,imaginary);
+    complexArray[index].setComplex(real, imaginary);
     complexNumber = complexArray[index];
     /*
     cout << "enter an index to be deleted: ";
@@ -132,14 +143,7 @@ void importComplexFile(string fileName) {
         imaginarySum += complexArray[i].getReal();
     }
     // this loop does the sorting
-    for (int target = 0; target < CAPACITY; target++){
-        for (int i = CAPACITY - 1; i > target ; i--) {
-            if (complexArray[i] < complexArray[i-1]){
-                swap(complexArray[i], complexArray[i-1]);
-            }
-        }
-        cout << complexArray[target];
-    }
+    listDA(CAPACITY, complexArray);
 
     Complex sumComplex(realSum, imaginarySum);
     outFile << "Sum: " << sumComplex << endl;
