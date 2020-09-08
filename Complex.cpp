@@ -2,12 +2,14 @@
 // Created by Arman Sadeghi on 8/28/20.
 //
 #include "Complex.h"
+#include "ComplexDB.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <math.h>
 
 using namespace std;
+
 
 // overload the << operator
 ostream &operator<<(ostream &output, const Complex &comp) {
@@ -41,7 +43,7 @@ Complex operator-(const Complex &firstNumber, const Complex &secondNumber) {
 bool operator<(const Complex &firstNumber, const Complex &secondNumber) {
     double value1 = sqrt(firstNumber.real * firstNumber.real + firstNumber.imaginary * firstNumber.imaginary);
     double value2 = sqrt(secondNumber.real * secondNumber.real + secondNumber.imaginary * secondNumber.imaginary);
-    return value2 < value1;
+    return value1 < value2;
 
     /*if (value2 < value1) {
         return true; Complex(firstNumber.real, firstNumber.imaginary);
@@ -114,24 +116,24 @@ void importComplexFile(string fileName) {
         index ++;
         // write to the file
         outFile << complexNumber;
-        realSum = realSum + real; // add up all the real numbers
-        imaginarySum = imaginarySum + imaginary; // add up all the imaginary numbers
     }
-    double sumImg = 0;
-    double sumReal = 0;
+    cout << "enter a number in complex form: ";
+    cin >> real >> imaginary;
+    complexArray[index].setComplex(real,imaginary);
+    complexNumber = complexArray[index];
+    /*
+    cout << "enter an index to be deleted: ";
+    cin >> index;
+    complexArray[index]; */
+
     // this loop calculates the sum
     for (int i = 0; i < CAPACITY - 1; ++i) {
-        sumImg += complexArray[i].getImaginary();
-        sumReal += complexArray[i].getReal();
-        /* doesnt work for the last array smh
-        if (complexArray[i] < complexArray[i + 1]){
-            swap(complexArray[i], complexArray[i + 1]);
-        }
-        cout << complexArray[i]; */
+        realSum += complexArray[i].getImaginary();
+        imaginarySum += complexArray[i].getReal();
     }
     // this loop does the sorting
     for (int target = 0; target < CAPACITY; target++){
-        for (int i = CAPACITY - 1; target > i ; i--) {
+        for (int i = CAPACITY - 1; i > target ; i--) {
             if (complexArray[i] < complexArray[i-1]){
                 swap(complexArray[i], complexArray[i-1]);
             }

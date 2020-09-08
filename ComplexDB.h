@@ -12,7 +12,9 @@ class ComplexDB{
 
 public:
     ComplexDB();
+    void add(ComplexDB c[], int index);
     void set_max_size(int n);
+    void setComplex(const double& real, const double& imag);
     int size;
     int max_size;
     ComplexDB *list;

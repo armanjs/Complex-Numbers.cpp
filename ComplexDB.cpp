@@ -25,21 +25,29 @@ ComplexDB::ComplexDB() {
     size = 0;
 }
 
+void ComplexDB::setComplex(const double& r, const double& i){
+    real = r;
+    imaginary = i;
+}
+
 void menuSelect(){
     int selection;
     cout << "Enter (1) for add, (2) for delete, (3) for list and (4) for save: ";
     cin >> selection;
 }
 
-void add(ComplexDB c, ComplexDB complexArray[]){
-
-
+void add(ComplexDB c[], int index){
+    double real;
+    double imaginary;
+    cout << "Enter the real and imaginary part of the number separated by spaces: ";
+    cin >> real >> imaginary;
+    c[index].setComplex(real, imaginary);
 }
 
 void list(Complex complexArray[]){
-    int CAPACITY = sizeof(*complexArray);
+    int CAPACITY = sizeof(complexArray) / sizeof(complexArray[0]);
     for (int target = 0; target < CAPACITY; target++){
-        for (int i = CAPACITY - 1; target > i ; i--) {
+        for (int i = CAPACITY - 1; i > target ; i--) {
             if (complexArray[i] < complexArray[i-1]){
                 swap(complexArray[i], complexArray[i-1]);
             }
