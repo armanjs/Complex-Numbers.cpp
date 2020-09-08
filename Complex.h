@@ -23,6 +23,7 @@ public:
     void setComplex(const double& real, const double& imag);
     double getReal() const;
     double getImaginary() const;
+    Complex *complexArray;
 
 private:
     double real;

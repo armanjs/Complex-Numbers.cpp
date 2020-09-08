@@ -2,8 +2,28 @@
 // Created by Arman Sadeghi on 9/3/20.
 //
 #include <iostream>
+#include "ComplexDB.h"
 #include "Complex.h"
+
 using namespace std;
+
+ostream &operator << (ostream &output, const ComplexDB comp[]){
+    int size = sizeof(comp)/sizeof(comp[0]); // find the size of the array
+    for (int i = 0; i < size; i++){
+        output << "(" << comp[i].real << ", " << comp[i].imaginary << ")" << endl;
+    }
+    return output;
+}
+
+void ComplexDB::set_max_size(int n) {
+    max_size = n;
+}
+
+ComplexDB::ComplexDB() {
+    real = 0;
+    imaginary = 0;
+    size = 0;
+}
 
 void menuSelect(){
     int selection;
@@ -11,7 +31,8 @@ void menuSelect(){
     cin >> selection;
 }
 
-void add(){
+void add(ComplexDB c, ComplexDB complexArray[]){
+
 
 }
 
