@@ -11,7 +11,7 @@
 using namespace std;
 
 class ComplexDB {
-    friend ostream &operator<<(ostream &output, const ComplexDB comp[]);
+    friend ostream &operator<<(ostream &output, const ComplexDB DB);
 
 public:
     ComplexDB();
@@ -32,7 +32,10 @@ public:
 
     int getCurrentSize() const;
 
+    void save();
+
     ComplexDB getComplexDB();
+
 
 private:
     int currentSize; // number of elements in array

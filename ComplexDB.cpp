@@ -1,6 +1,7 @@
 //
 // Created by Arman Sadeghi on 9/3/20.
 //
+#include <iosfwd>
 #include <math.h>
 #include <fstream>
 #include <sstream>
@@ -12,14 +13,17 @@ void list(const int CAPACITY, Complex *complexArray);
 
 using namespace std;
 
-/*
-ostream &operator << (ostream &output, const ComplexDB comp[]){
-    int size = sizeof(comp)/sizeof(comp[0]); // find the size of the array
-    for (int i = 0; i < size; i++){
-        output << "(" << comp[i].real << ", " << comp[i].imaginary << ")" << endl;
+ostream &operator<<(ostream &output, const ComplexDB DB) {
+    for (int target = 0; target < DB.getCurrentSize(); target++) {
+        for (int i = DB.getCurrentSize() - 1; i > target; i--) {
+            if (DB.db[i] < DB.db[i - 1]) {
+                swap(DB.db[i], DB.db[i - 1]);
+            }
+        }
+        output << target << ": " << DB.db[target];
     }
     return output;
-} */
+}
 
 void ComplexDB::setMaxSize() {
     // if there's enough size, return
@@ -47,23 +51,31 @@ ComplexDB::ComplexDB() {
 
 
 void ComplexDB::menuSelect() {
+    cout << "Shown below is the list imported from the selected file." << endl;
+    list();
     int selection;
     cout << "Enter (1) for add, (2) for delete, (3) for list and (4) for save, or (-1) to quit: ";
     cin >> selection;
-    while (selection == -1) {
+    while (selection != -1) {
         if (selection == 1) {
             add();
         } else if (selection == 2) {
+            list();
             del();
         } else if (selection == 3) {
             list();
         } else if (selection == 4) {
-//            save();
+            save();
         } else {
             cout << "Invalid input, try again." << endl;
+            cout << "Enter (1) for add, (2) for delete, "
+                    "(3) for list and (4) for save, or (-1) to quit: ";
+            cin.clear();
             cin >> selection;
         }
-
+        cout << "What would u like to do next (1-4): ";
+        cin.clear();
+        cin >> selection;
     }
 }
 
@@ -75,6 +87,7 @@ void ComplexDB::add() {
     setMaxSize();
     db[currentSize].setComplex(real, imaginary);
     currentSize++;
+    cout << "(" << real << "+" << imaginary << "i) has been added" << endl;
 }
 
 void ComplexDB::list() {
@@ -100,6 +113,7 @@ void ComplexDB::del() {
     int index = 0;
     cout << "Enter the index to be deleted: ";
     cin >> index;
+    Complex tobeDel = db[index];
 
     if (index < 0 && index > currentSize + 1) {
         cout << "Invalid index" << endl;
@@ -109,6 +123,9 @@ void ComplexDB::del() {
         db[i] = db[i + 1];
     }
     currentSize--;
+
+    cout << tobeDel << "Has been deleted." << endl;
+
 }
 
 void ComplexDB::append(Complex number) {
@@ -118,3 +135,21 @@ void ComplexDB::append(Complex number) {
 }
 
 
+void ComplexDB::save() {
+    string filename = "output.txt";
+    ofstream outFile(filename);
+    if (outFile.fail()) { // if unable to open
+        cout << "Unable to create --" << filename << "--" << endl;
+        exit(1);
+    }
+
+    for (int target = 0; target < getCurrentSize(); target++) {
+        for (int i = getCurrentSize() - 1; i > target; i--) {
+            if (db[i] < db[i - 1]) {
+                swap(db[i], db[i - 1]);
+            }
+        }
+        outFile << target << ": " << db[target];
+    }
+    cout << "Your file has been saved!";
+}

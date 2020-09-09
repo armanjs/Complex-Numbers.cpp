@@ -48,18 +48,6 @@ ifstream importComplexFile2(string fileName) {
     return inFile;
 }
 
-ofstream outputComplexDBFile(ComplexDB DB) {
-    string filename = "output.txt";
-    ofstream outFile(filename);
-    if (outFile.fail()) { // if unable to open
-        cout << "Unable to create --" << filename << "--" << endl;
-        exit(1);
-    }
-//    return outFile;
-
-//  outFile << DB;
-}
-
 int main() {
 
 //    import - read input file
@@ -67,12 +55,11 @@ int main() {
 //    create output file
 //    save - loop over Database and put in output file
 
-    ComplexDB DB;
+    ComplexDB DB; // create a complex data base object
     ofstream outFile;
     ifstream inputFile = importComplexFile2("../complex.txt");
-    populateDB(inputFile, DB);
-//    outputComplexDBFile(DB);
-    DB.list();
+    populateDB(inputFile, DB); // reads from file into data base
+    DB.menuSelect();
 
 //    importComplexFile("../complex.txt");
 
