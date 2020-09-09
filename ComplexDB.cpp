@@ -11,6 +11,7 @@
 void list(const int CAPACITY, Complex *complexArray);
 
 using namespace std;
+
 /*
 ostream &operator << (ostream &output, const ComplexDB comp[]){
     int size = sizeof(comp)/sizeof(comp[0]); // find the size of the array
@@ -20,50 +21,97 @@ ostream &operator << (ostream &output, const ComplexDB comp[]){
     return output;
 } */
 
-void ComplexDB::setMaxSize(int n) {
-
+void ComplexDB::setMaxSize() {
+    // if there's enough size, return
+    if (currentSize < maxSize) return;
+    // if not store the old size into maxSize
+    int oldMaxSize = maxSize;
+    // add to the maxSize by half of its original (e.g. 10 -> 15)
+    maxSize++;
+    // create a new complex array and set the new max siz as capacity
+    Complex *newDB = new Complex[maxSize];
+    // go thru the old array (db) and copy into the new empty newDB
+    for (currentSize = 0; currentSize < oldMaxSize; currentSize++) {
+        newDB[currentSize] = db[currentSize];
+    }
+    delete[] db; // delete the old db ARRAY
+    db = newDB; //
+    newDB = nullptr;
 }
 
 ComplexDB::ComplexDB() {
     currentSize = 0;
-    maxSize = 0;
+    maxSize = 1;
+    db = new Complex[maxSize];
 }
 
 
-void menuSelect(){
+void menuSelect() {
     int selection;
-    cout << "Enter (1) for add, (2) for delete, (3) for list and (4) for save: ";
+    cout << "Enter (1) for add, (2) for delete, (3) for list and (4) for save, or (-1) to quit: ";
     cin >> selection;
+    while (selection == -1) {
+        if (selection == 1) {
+
+        } else if (selection == 2) {
+            // del()
+        } else if (selection == 3) {
+            //list();
+        } else if (selection == 4) {
+            // save()
+        } else {
+            cout << "Invalid input, try again." << endl;
+            cin >> selection;
+        }
+
+    }
 }
 
-void add(Complex c[], int index){
+void ComplexDB::add() {
     double real;
     double imaginary;
     cout << "Enter the real and imaginary part of the number separated by spaces: ";
     cin >> real >> imaginary;
-    c[index].setComplex(real, imaginary);
+    setMaxSize();
+    db[currentSize].setComplex(real, imaginary);
+    currentSize++;
 }
 
-//void list1(Complex complexArray[]){
-//    int CAPACITY = sizeof(complexArray) / sizeof(complexArray[0]);
-//    for (int target = 0; target < CAPACITY; target++){
-//        for (int i = CAPACITY - 1; i > target ; i--) {
-//            if (complexArray[i] < complexArray[i-1]){
-//                swap(complexArray[i], complexArray[i-1]);
-//            }
-//        }
-//        cout << complexArray[target];
-//    }
-//}
-
-
-void ComplexDB::list(const int CAPACITY, Complex *complexArray) {
-    for (int target = 0; target < CAPACITY; target++) {
-        for (int i = CAPACITY - 1; i > target; i--) {
-            if (complexArray[i] < complexArray[i - 1]) {
-                swap(complexArray[i], complexArray[i - 1]);
+void ComplexDB::list() {
+    for (int target = 0; target < currentSize; target++) {
+        for (int i = currentSize - 1; i > target; i--) {
+            if (db[i] < db[i - 1]) {
+                swap(db[i], db[i - 1]);
             }
         }
-        cout << complexArray[target];
+        cout << target << ": " << db[target];
     }
 }
+
+int ComplexDB::getMaxSize() const {
+    return maxSize;
+}
+
+int ComplexDB::getCurrentSize() const {
+    return currentSize;
+}
+
+void ComplexDB::del() {
+    int index = 0;
+    cout << "Enter the index to be deleted: ";
+    cin >> index;
+
+    if (index < 0 && index > currentSize + 1) {
+        cout << "Invalid index" << endl;
+        return;
+    }
+    for (int i = index; i < currentSize - 1; ++i) {
+        db[i] = db[i + 1];
+        //cout << currentSize;
+    }
+    currentSize--;
+
+    //db[index].setComplex(0,0);
+}
+
+

@@ -98,6 +98,8 @@ void importComplexFile(string fileName) {
     const int CAPACITY = 10; // capacity for the array
     int index = 0; // index for the array
 
+    ComplexDB DB;
+
     // open the file
     inFile.open(fileName.c_str()); // convert from string to number
     if (inFile.fail()) { // if unable to open
@@ -150,7 +152,15 @@ void importComplexFile(string fileName) {
 
     inFile.close();
     cout << "real sum: " << realSum << " Imaginary sum: " << imaginarySum << endl;
+
+
+    DB.add();
+    DB.add();
+    DB.add();
+    DB.add();
+    DB.add();
+    DB.list();
+    DB.del();
+    DB.list();
 }
-
-
 
