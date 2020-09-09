@@ -8,6 +8,9 @@
 #include <fstream>
 #include <math.h>
 
+void populateDB(const ifstream &inFile, double real, double imaginary, string &oneLine, int index, ComplexDB &DB,
+                Complex &complexNumber);
+
 using namespace std;
 
 
@@ -87,6 +90,8 @@ void listDA(const int CAPACITY, Complex *complexArray) {
     }
 }
 
+
+
 void importComplexFile(string fileName) {
     ifstream inFile; // create an in file object
     ofstream outFile; // create an output stream object
@@ -110,9 +115,9 @@ void importComplexFile(string fileName) {
     outFile.open("complexObj.txt");
     // create a complex object
     Complex complexNumber(real, imaginary);
-    // create a dynamic array
+    /* create a dynamic array
     Complex *complexArray;
-    complexArray = new Complex[CAPACITY];
+    complexArray = new Complex[CAPACITY];*/
 
     while (getline(inFile, oneLine)) { // as long as it hasn't reached end of file
         // read from the inFile into the "oneLine" string
@@ -124,43 +129,23 @@ void importComplexFile(string fileName) {
         // set the numbers accordingly into the object
         complexNumber.setComplex(real, imaginary);
         // read into the array
-        complexArray[index] = complexNumber;
+        DB.append(complexNumber);
+        //complexArray[index] = complexNumber;
         // go to the next index
         index++;
         // write to the file
         outFile << complexNumber;
     }
-    cout << "enter a number in complex form: ";
-    cin >> real >> imaginary;
-    complexArray[index].setComplex(real, imaginary);
-    complexNumber = complexArray[index];
-    /*
-    cout << "enter an index to be deleted: ";
-    cin >> index;
-    complexArray[index]; */
-
-    // this loop calculates the sum
+    // this loop does the sorting
+    DB.add();
+    DB.list();
+    /* this loop calculates the sum
     for (int i = 0; i < CAPACITY - 1; ++i) {
         realSum += complexArray[i].getImaginary();
         imaginarySum += complexArray[i].getReal();
-    }
-    // this loop does the sorting
-    listDA(CAPACITY, complexArray);
-
-    Complex sumComplex(realSum, imaginarySum);
-    outFile << "Sum: " << sumComplex << endl;
+    }*/
 
     inFile.close();
-    cout << "real sum: " << realSum << " Imaginary sum: " << imaginarySum << endl;
 
-
-    DB.add();
-    DB.add();
-    DB.add();
-    DB.add();
-    DB.add();
-    DB.list();
-    DB.del();
-    DB.list();
 }
 

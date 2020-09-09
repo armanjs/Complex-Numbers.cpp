@@ -46,19 +46,19 @@ ComplexDB::ComplexDB() {
 }
 
 
-void menuSelect() {
+void ComplexDB::menuSelect() {
     int selection;
     cout << "Enter (1) for add, (2) for delete, (3) for list and (4) for save, or (-1) to quit: ";
     cin >> selection;
     while (selection == -1) {
         if (selection == 1) {
-
+            add();
         } else if (selection == 2) {
-            // del()
+            del();
         } else if (selection == 3) {
-            //list();
+            list();
         } else if (selection == 4) {
-            // save()
+//            save();
         } else {
             cout << "Invalid input, try again." << endl;
             cin >> selection;
@@ -107,11 +107,14 @@ void ComplexDB::del() {
     }
     for (int i = index; i < currentSize - 1; ++i) {
         db[i] = db[i + 1];
-        //cout << currentSize;
     }
     currentSize--;
+}
 
-    //db[index].setComplex(0,0);
+void ComplexDB::append(Complex number) {
+    setMaxSize();
+    db[currentSize].setComplex(number.getReal(), number.getImaginary());
+    currentSize++;
 }
 
 

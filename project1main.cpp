@@ -3,6 +3,7 @@
 #include <iosfwd>
 #include <sstream>
 #include "Complex.h"
+#include "ComplexDB.h"
 
 // Complex Number, project 1
 // CMPE 126
@@ -10,25 +11,70 @@
 // September 2, 2020
 
 using namespace std;
+
 void importComplexFile(string fileName);
+
+void populateDB(ifstream &inputStream, ComplexDB &DB) {
+    double real = 0, imaginary = 0; // a, bi
+    string oneLine; // read one line into the variable
+    int index = 0; // index for the array
+    Complex complexNumber(real, imaginary);
+
+    while (getline(inputStream, oneLine)) { // as long as it hasn't reached end of file
+        // read from the inFile into the "oneLine" string
+        if (oneLine.back() == 'i') { // find the 'i'
+            oneLine.erase(prev(oneLine.end()));
+        }
+        // convert from string into double
+        stringstream(oneLine) >> real >> imaginary;
+        // set the numbers accordingly into the object
+        complexNumber.setComplex(real, imaginary);
+        // read into the array
+        DB.append(complexNumber);
+        // go to the next index
+        index++;
+    }
+}
+
+ifstream importComplexFile2(string fileName) {
+    ifstream inFile; // create an in file object
+
+    // open the file
+    inFile.open(fileName.c_str()); // convert from string to number
+    if (inFile.fail()) { // if unable to open
+        cout << "Unable to open --" << fileName << "--" << endl;
+        exit(1);
+    }
+    return inFile;
+}
+
+ofstream outputComplexDBFile(ComplexDB DB) {
+    string filename = "output.txt";
+    ofstream outFile(filename);
+    if (outFile.fail()) { // if unable to open
+        cout << "Unable to create --" << filename << "--" << endl;
+        exit(1);
+    }
+//    return outFile;
+
+//  outFile << DB;
+}
 
 int main() {
 
-    importComplexFile("../complex.txt");
-    /* int arr[] = {1,2,3,4};
-    cout << sizeof(arr) / sizeof(arr[0]); */
+//    import - read input file
+//    read to DB - add complex numbers to complexDB
+//    create output file
+//    save - loop over Database and put in output file
 
+    ComplexDB DB;
+    ofstream outFile;
+    ifstream inputFile = importComplexFile2("../complex.txt");
+    populateDB(inputFile, DB);
+//    outputComplexDBFile(DB);
+    DB.list();
 
-    /*for debugging only
-    Complex c1(3, 6);
-    Complex c2(4, 6);
-
-    cout << endl << c1 + c2;
-    cout << c1;
-    if (c1 < c2){
-        cout << "true";
-    } */
-
+//    importComplexFile("../complex.txt");
 
     return 0;
 }

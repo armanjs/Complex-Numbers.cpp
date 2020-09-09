@@ -24,6 +24,10 @@ public:
 
     void list();
 
+    void append(Complex number);
+
+    void menuSelect();
+
     int getMaxSize() const;
 
     int getCurrentSize() const;
