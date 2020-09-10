@@ -23,9 +23,10 @@ public:
     void setComplex(const double& real, const double& imag);
     double getReal() const;
     double getImaginary() const;
-    Complex *complexArray;
+    //Complex *complexArray;
 
 private:
+    // the complex number has two private properties
     double real;
     double imaginary;
 };

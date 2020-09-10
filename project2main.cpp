@@ -12,8 +12,7 @@
 
 using namespace std;
 
-void importComplexFile(string fileName);
-
+// read from file into a complex data base
 void populateDB(ifstream &inputStream, ComplexDB &DB) {
     double real = 0, imaginary = 0; // a, bi
     string oneLine; // read one line into the variable
@@ -36,9 +35,9 @@ void populateDB(ifstream &inputStream, ComplexDB &DB) {
     }
 }
 
+// open the file and return an inFile stream object
 ifstream importComplexFile2(string fileName) {
     ifstream inFile; // create an in file object
-
     // open the file
     inFile.open(fileName.c_str()); // convert from string to number
     if (inFile.fail()) { // if unable to open
@@ -56,10 +55,11 @@ int main() {
 //    save - loop over Database and put in output file
 
     ComplexDB DB; // create a complex data base object
-    ofstream outFile;
+    ofstream outFile; // create an outFile stream object
+    // read from the file into the inFile object
     ifstream inputFile = importComplexFile2("../complex.txt");
     populateDB(inputFile, DB); // reads from file into data base
-    DB.menuSelect();
+    DB.menuSelect(); // call function for actions
 
 //    importComplexFile("../complex.txt");
 

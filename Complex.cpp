@@ -8,20 +8,17 @@
 #include <fstream>
 #include <math.h>
 
-void populateDB(const ifstream &inFile, double real, double imaginary, string &oneLine, int index, ComplexDB &DB,
-                Complex &complexNumber);
-
 using namespace std;
 
 
 // overload the << operator
-ostream &operator<<(ostream &output, const Complex &comp) {
+ostream &operator << (ostream &output, const Complex &comp) {
     output << "(" << comp.real << ", " << comp.imaginary << ")" << endl;
     return output;
 }
 
 //overload the >> operator
-istream &operator>>(istream &input, Complex &comp) {
+istream &operator >> (istream &input, Complex &comp) {
     char nan; // not a number (anything but a number)
     double realPart;
     double imaginaryPart;
@@ -35,24 +32,28 @@ istream &operator>>(istream &input, Complex &comp) {
     return input;
 }
 
-Complex operator+(const Complex &firstNumber, const Complex &secondNumber) {
+// overload the + operator
+Complex operator + (const Complex &firstNumber, const Complex &secondNumber) {
     return Complex(firstNumber.real + secondNumber.real, firstNumber.imaginary + secondNumber.imaginary);
 }
 
-Complex operator-(const Complex &firstNumber, const Complex &secondNumber) {
+// overload the - operator
+Complex operator - (const Complex &firstNumber, const Complex &secondNumber) {
     return Complex(firstNumber.real - secondNumber.real, firstNumber.imaginary - secondNumber.imaginary);
 }
 
-bool operator<(const Complex &firstNumber, const Complex &secondNumber) {
+// overload the < operator for complex object comparison
+bool operator < (const Complex &firstNumber, const Complex &secondNumber) {
     double value1 = sqrt(firstNumber.real * firstNumber.real + firstNumber.imaginary * firstNumber.imaginary);
     double value2 = sqrt(secondNumber.real * secondNumber.real + secondNumber.imaginary * secondNumber.imaginary);
     return value1 < value2;
 
-    /*if (value2 < value1) {
+    /*
+    if (value2 < value1) {
         return true; Complex(firstNumber.real, firstNumber.imaginary);
     } else {
         return false; Complex(secondNumber.real, secondNumber.imaginary);
-    } */
+    }*/
 }
 
 // define the constructors
@@ -71,6 +72,7 @@ void Complex::setComplex(const double &r, const double &i) {
     imaginary = i;
 }
 
+// define getters
 double Complex::getReal() const {
     return real;
 }
@@ -79,6 +81,7 @@ double Complex::getImaginary() const {
     return imaginary;
 }
 
+/* for debugging
 void listDA(const int CAPACITY, Complex *complexArray) {
     for (int target = 0; target < CAPACITY; target++) {
         for (int i = CAPACITY - 1; i > target; i--) {
@@ -89,8 +92,6 @@ void listDA(const int CAPACITY, Complex *complexArray) {
         cout << complexArray[target];
     }
 }
-
-
 
 void importComplexFile(string fileName) {
     ifstream inFile; // create an in file object
@@ -115,9 +116,9 @@ void importComplexFile(string fileName) {
     outFile.open("complexObj.txt");
     // create a complex object
     Complex complexNumber(real, imaginary);
-    /* create a dynamic array
-    Complex *complexArray;
-    complexArray = new Complex[CAPACITY];*/
+    // create a dynamic array
+    //Complex *complexArray;
+    //complexArray = new Complex[CAPACITY];
 
     while (getline(inFile, oneLine)) { // as long as it hasn't reached end of file
         // read from the inFile into the "oneLine" string
@@ -143,9 +144,8 @@ void importComplexFile(string fileName) {
     for (int i = 0; i < CAPACITY - 1; ++i) {
         realSum += complexArray[i].getImaginary();
         imaginarySum += complexArray[i].getReal();
-    }*/
+    }
 
     inFile.close();
 
-}
-
+} */
