@@ -4,11 +4,12 @@
 #include <sstream>
 #include "Complex.h"
 #include "ComplexDB.h"
-
-// Complex Number, project 1
-// CMPE 126
+// ===========================
+// Complex Number Data Base, project 2
+// CMPE 126, section 6
 // Arman Sadeghi
-// September 2, 2020
+// September 10, 2020
+// ===========================
 
 using namespace std;
 

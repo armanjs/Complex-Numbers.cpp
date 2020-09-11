@@ -55,7 +55,8 @@ void ComplexDB::menuSelect() {
     cout << "Shown below is the list imported from the selected file." << endl;
     list();
     int selection;
-    cout << "Enter (1) for add, (2) for delete, (3) for list, (4) reverse list, and (5) for save, or (-1) to quit: ";
+    cout << "Enter (1) for add, (2) for delete, (3) for list"
+            "\n (4) reverse list, and (5) for save, or (-1) to quit: ";
     cin >> selection;
     while (selection != -1) {
         if (selection == 1) {
@@ -101,6 +102,7 @@ void ComplexDB::add() {
 
 // print out the list in ascending order (bubble sort)
 void ComplexDB::list() {
+    cout << "In ascending order:" << endl;
     for (int target = 0; target < currentSize; target++) {
         for (int i = currentSize - 1; i > target; i--) {
             if (db[i] < db[i - 1]) {
@@ -112,6 +114,7 @@ void ComplexDB::list() {
 }
 // reverse the order of the list
 void ComplexDB::reverseList() {
+    cout << "In descending order:" << endl;
     for (int target = 0; target < currentSize; target++) {
         for (int i = currentSize - 1; i > target ; i--) {
             if (db[i - 1] < db[i]){
@@ -164,7 +167,7 @@ void ComplexDB::save() {
         cout << "Unable to create --" << filename << "--" << endl;
         exit(1);
     }
-
+    outFile << "In ascending order:" << endl;
     for (int target = 0; target < getCurrentSize(); target++) {
         for (int i = getCurrentSize() - 1; i > target; i--) {
             if (db[i] < db[i - 1]) {
@@ -173,5 +176,15 @@ void ComplexDB::save() {
         }
         outFile << target << ": " << db[target];
     }
+    outFile << endl << "In descending order:" << endl;
+    for (int target = 0; target < getCurrentSize(); target++) {
+        for (int i = getCurrentSize() - 1; i > target; i--) {
+            if (db[i - 1] < db[i]) {
+                swap(db[i - 1], db[i]);
+            }
+        }
+        outFile << target << ": " << db[target];
+    }
+
     cout << "Your file has been saved! ";
 }
