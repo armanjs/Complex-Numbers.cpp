@@ -56,6 +56,13 @@ bool operator < (const Complex &firstNumber, const Complex &secondNumber) {
     }*/
 }
 
+// overload the < operator for complex object comparison
+bool operator != (const Complex &firstNumber, const Complex &secondNumber) {
+    double value1 = sqrt(firstNumber.real * firstNumber.real + firstNumber.imaginary * firstNumber.imaginary);
+    double value2 = sqrt(secondNumber.real * secondNumber.real + secondNumber.imaginary * secondNumber.imaginary);
+    return value1 != value2;
+}
+
 // define the constructors
 Complex::Complex() {
     real = 0;

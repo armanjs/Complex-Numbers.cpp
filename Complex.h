@@ -14,6 +14,7 @@ class Complex{
     friend bool operator < (const Complex& firstNumber, const Complex& secondNumber);
     friend Complex operator + (const Complex& firstNumber, const Complex& secondNumber);
     friend Complex operator - (const Complex& firstNumber, const Complex& secondNumber);
+    friend bool operator != (const Complex& firstNumber, const Complex& secondNumber);
 
 public:
     // define the constructors

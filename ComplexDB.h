@@ -26,6 +26,8 @@ public:
 
     void reverseList();
 
+    void reverseList2();
+
     void append(Complex number);
 
     void menuSelect();

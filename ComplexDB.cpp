@@ -12,7 +12,7 @@
 using namespace std;
 
 // overload the << operator
-ostream &operator << (ostream &output, const ComplexDB DB) {
+ostream &operator<<(ostream &output, const ComplexDB DB) {
     for (int target = 0; target < DB.getCurrentSize(); target++) {
         for (int i = DB.getCurrentSize() - 1; i > target; i--) {
             if (DB.db[i] < DB.db[i - 1]) {
@@ -67,11 +67,10 @@ void ComplexDB::menuSelect() {
         } else if (selection == 3) {
             list();
         } else if (selection == 4) {
-            reverseList();
-        } else if (selection == 5){
+            reverseList2();
+        } else if (selection == 5) {
             save();
-        }
-        else {
+        } else {
             cout << "Invalid input, try again." << endl;
             cout << "Enter (1) for add, (2) for delete, "
                     "(3) for list and (4) for save, or (-1) to quit: ";
@@ -112,16 +111,35 @@ void ComplexDB::list() {
         cout << target << ": " << db[target];
     }
 }
+
 // reverse the order of the list
 void ComplexDB::reverseList() {
     cout << "In descending order:" << endl;
     for (int target = 0; target < currentSize; target++) {
-        for (int i = currentSize - 1; i > target ; i--) {
-            if (db[i - 1] < db[i]){
+        for (int i = currentSize - 1; i > target; i--) {
+            if (db[i - 1] < db[i]) {
                 swap(db[i - 1], db[i]);
             }
         }
         cout << target << ": " << db[target];
+    }
+}
+
+void ComplexDB::reverseList2() {
+    Complex maxNumber = db[0];
+    for (int i = 0; i < currentSize - 1; i++) {
+        if (db[i] < db[i + 1]) {
+            swap(db[i], db[i + 1]);
+            if (maxNumber < db[i]) maxNumber = db[i];
+        }
+    }
+    if (maxNumber != db[0]) {
+        reverseList2();
+    } else {
+        for (int target = 0; target < currentSize; target++) {
+            cout << target << ": " << db[target];
+        }
+        cout << "The max number in the array is: " << maxNumber;
     }
 }
 
